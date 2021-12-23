@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Saharsh Samir",
+  "license": "MIT",
+  "scripts": {
+    "server": "ts-node-dev --no-notify --respawn --transpile-only src/server",
+    "migrate": "npx prisma migrate dev",
+    "prisma:generate": "npx prisma generate",
+    "dev": "yarn server"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.0",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@graphql-codegen/typescript-resolvers": "^2.4.2",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.4",
+    "concurrently": "^6.5.1",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.3.3",
+    "@graphql-tools/load": "^7.5.0",
+    "@graphql-tools/schema": "^8.3.1",
+    "@prisma/client": "^3.7.0",
+    "apollo-server": "^3.5.0",
+    "apollo-server-core": "^3.5.0",
+    "apollo-server-express": "^3.5.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "global": "^4.4.0",
+    "graphql": "^16.2.0"
+  }
+}

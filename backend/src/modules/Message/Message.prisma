@@ -1,0 +1,11 @@
+model Message {
+  messageId String @id @default(cuid())
+  text      String
+  sender    User   @relation(fields: [userId], references: [userId])
+  userId    String
+}
+
+model User {
+  userId  String    @id @default(cuid())
+  Message Message[]
+}

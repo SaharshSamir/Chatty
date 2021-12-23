@@ -1,0 +1,12 @@
+scalar Date
+
+type Query {
+    getMessage: String!
+}
+
+type Message {
+    message_id: String!
+    text: String!
+    timeStamp: Date
+    sender_id: String
+}

@@ -1,0 +1,5 @@
+model User {
+  userId   String @id @default(cuid())
+  username String
+  email    String
+}
