@@ -5,6 +5,7 @@ import { merge } from "lodash"
 import {join} from 'path'
 
 import { MessageResolver } from "./modules/Message/resolvers"
+import { UserResolvers } from "./modules/User/resolvers"
 
 const baseSchema = loadSchemaSync(join(__dirname, "modules/**/*.graphql"), {
     loaders: [new GraphQLFileLoader()]
@@ -12,7 +13,7 @@ const baseSchema = loadSchemaSync(join(__dirname, "modules/**/*.graphql"), {
 
 const schema = addResolversToSchema({
     schema: baseSchema,
-    resolvers: merge(MessageResolver)
+    resolvers: merge(MessageResolver, UserResolvers)
 })
 
 export default schema;

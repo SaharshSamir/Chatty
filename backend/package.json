@@ -7,10 +7,11 @@
   "scripts": {
     "server": "ts-node-dev --no-notify --respawn --transpile-only src/server",
     "migrate": "npx prisma migrate dev",
-    "prismix": "npx prismix && prisma format",
+    "prismix": "npx prismix && npx prisma format",
     "prisma:generate": "npx prisma generate",
-    "prisma": "yarn migrate && yarn prisma:generate && yarn prismix",
-    "dev": "yarn server"
+    "prisma": "yarn prismix && yarn migrate && yarn prisma:generate",
+    "dev": "yarn server",
+    "graphql:generate": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.3.0",
@@ -29,12 +30,22 @@
     "@graphql-tools/load": "^7.5.0",
     "@graphql-tools/schema": "^8.3.1",
     "@prisma/client": "^3.7.0",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/passport": "^1.0.7",
+    "@types/passport-google-oauth20": "^2.0.11",
     "apollo-server": "^3.5.0",
     "apollo-server-core": "^3.5.0",
     "apollo-server-express": "^3.5.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "global": "^4.4.0",
-    "graphql": "^16.2.0"
+    "graphql": "^16.2.0",
+    "graphql-middleware": "^6.1.13",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.5.2",
+    "passport-google-oauth20": "^2.0.0"
   }
 }

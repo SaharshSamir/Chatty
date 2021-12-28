@@ -8,16 +8,31 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Message {
-  messageId String @id @default(cuid())
-  text      String
-  sender    User   @relation(name: "MessageToUser", fields: [userId], references: [userId])
-  userId    String
+model Conversation {
+  conversation_id String    @id @default(cuid())
+  is_groupChat    Boolean
+  participants    User[]    @relation(name: "ConversationToUser")
+  Message         Message[] @relation(name: "ConversationToMessage")
+
+  @@map("conversations")
 }
 
 model User {
-  userId   String    @id @default(cuid())
-  Message  Message[] @relation(name: "MessageToUser")
-  username String
-  email    String
+  user_id       String         @id @default(cuid())
+  conversations Conversation[] @relation(name: "ConversationToUser")
+  Message       Message[]      @relation(name: "MessageToUser")
+  username      String
+  email         String
+  password      String
+}
+
+model Message {
+  messageId       String       @id @default(cuid())
+  text            String
+  sender          User         @relation(name: "MessageToUser", fields: [senderId], references: [user_id])
+  senderId        String
+  conversation    Conversation @relation(name: "ConversationToMessage", fields: [conversation_id], references: [conversation_id])
+  conversation_id String
+
+  @@map("messages")
 }

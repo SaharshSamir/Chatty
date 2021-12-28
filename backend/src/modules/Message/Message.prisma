@@ -1,11 +1,20 @@
 model Message {
-  messageId String @id @default(cuid())
-  text      String
-  sender    User   @relation(fields: [userId], references: [userId])
-  userId    String
+  messageId       String       @id @default(cuid())
+  text            String
+  sender          User         @relation(fields: [senderId], references: [user_id])
+  senderId        String
+  conversation    Conversation @relation(fields: [conversation_id], references: [conversation_id])
+  conversation_id String
+
+  @@map("messages")
 }
 
 model User {
-  userId  String    @id @default(cuid())
+  user_id String    @id @default(cuid())
   Message Message[]
+}
+
+model Conversation {
+  conversation_id String    @id @default(cuid())
+  Message         Message[]
 }

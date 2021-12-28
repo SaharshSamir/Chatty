@@ -1,5 +1,8 @@
 model User {
-  userId   String @id @default(cuid())
+  user_id  String @id @default(cuid())
   username String
   email    String
+  password String
+
+  @@map("users")
 }

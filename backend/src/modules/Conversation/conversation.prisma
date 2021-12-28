@@ -1,0 +1,12 @@
+model Conversation {
+  conversation_id String  @id @default(cuid())
+  is_groupChat    Boolean
+  participants    User[]
+
+  @@map("conversations")
+}
+
+model User {
+  user_id       String         @id @default(cuid())
+  conversations Conversation[]
+}
