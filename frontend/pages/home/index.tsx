@@ -5,13 +5,11 @@ import ChatWindow from "../../components/ChatWindow";
 
 const Home: NextPage = () => {
 	return (
-		<html>
+		<html className="h-screen">
 			<body className="h-full bg-gray-200">
 				<Navbar />
-				<div id="content" className="mt-8 flex">
-					<div className="w-full">
-						<Sidebar />
-					</div>
+				<div className="flex">
+					<Sidebar />
 					<ChatWindow />
 				</div>
 			</body>

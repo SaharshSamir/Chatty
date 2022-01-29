@@ -15,6 +15,14 @@ export type Scalars = {
   Date: any;
 };
 
+export type Conversation = {
+  __typename?: 'Conversation';
+  conversation_id?: Maybe<Scalars['String']>;
+  is_groupChat: Scalars['Boolean'];
+  messages?: Maybe<Array<Maybe<Message>>>;
+  participants?: Maybe<User>;
+};
+
 export type Message = {
   __typename?: 'Message';
   message_id: Scalars['String'];
@@ -37,9 +45,16 @@ export type MutationSignUpArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  getConversation?: Maybe<Conversation>;
   getMessage: Scalars['String'];
   login?: Maybe<Scalars['String']>;
   me?: Maybe<User>;
+  test?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetConversationArgs = {
+  conversation_id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -51,6 +66,7 @@ export type QueryLoginArgs = {
 export type User = {
   __typename?: 'User';
   contacts?: Maybe<Array<Maybe<User>>>;
+  conversations?: Maybe<Array<Maybe<Conversation>>>;
   email: Scalars['String'];
   username: Scalars['String'];
 };
@@ -125,6 +141,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Conversation: ResolverTypeWrapper<Conversation>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Message: ResolverTypeWrapper<Message>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -136,12 +153,21 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Conversation: Conversation;
   Date: Scalars['Date'];
   Message: Message;
   Mutation: {};
   Query: {};
   String: Scalars['String'];
   User: User;
+};
+
+export type ConversationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Conversation'] = ResolversParentTypes['Conversation']> = {
+  conversation_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  is_groupChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType>;
+  participants?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -161,19 +187,23 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getConversation?: Resolver<Maybe<ResolversTypes['Conversation']>, ParentType, ContextType, RequireFields<QueryGetConversationArgs, never>>;
   getMessage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   login?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   contacts?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Conversation']>>>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
+  Conversation?: ConversationResolvers<ContextType>;
   Date?: GraphQLScalarType;
   Message?: MessageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

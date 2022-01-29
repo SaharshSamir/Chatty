@@ -1,0 +1,10 @@
+type Query {
+    getConversation(conversation_id: String): Conversation
+}
+
+type Conversation {
+    conversation_id: String
+    is_groupChat: Boolean!
+    participants: User
+    messages: [Message]
+}

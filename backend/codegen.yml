@@ -1,8 +1,13 @@
 overwrite: true
+watch: true
 schema: "http://localhost:8000/graphql"
-documents: null
+# documents: 'src/modules/**/*.graphql'
 generates:
   src/graphql/types.ts:
+    config:
+      withHooks: true
+      withComponent: true
+      withHOC: true
     plugins:
       - "typescript"
       - "typescript-resolvers"

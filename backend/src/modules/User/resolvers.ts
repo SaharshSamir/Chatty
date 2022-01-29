@@ -10,6 +10,10 @@ import { UserInputError } from 'apollo-server-core';
 
 export const UserResolvers : Resolvers<resolverContext> = {
     Query: {
+        // test: (_parent, _args, context) => {
+        //     const something = {name: "saharsh", age: 20, jobTitle: "full-stack developer"};
+        //     return something;
+        // },
         me: async (_parent, _args, context) => {
             let currentUser : User | null = null;
             if(context.isAuth){
@@ -32,7 +36,7 @@ export const UserResolvers : Resolvers<resolverContext> = {
                 throw new UserInputError("Invalid credentials");
             }
             const token : string = jwt.sign({user_id: existingUser?.user_id}, process.env.JWT_SECRET as string);
-
+            console.log(`token from login context: ${token}`)
             return token;
 
         }

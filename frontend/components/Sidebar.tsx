@@ -6,56 +6,59 @@ import * as Profile from "./Profile";
 const contacts = [
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.PinkDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.BlueDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.PinkDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.OrangeDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.BlueDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.PinkDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.BlueDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.OrangeDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 	{
 		username: "Person Name",
-		profile: Profile.BlueDp,
+		profile: Profile.GreenDp({ size: "30px" }),
 		lastMessage: "Haha! same",
 	},
 ];
 
 const Sidebar: NextComponentType = () => {
 	const renderContacts = () => {
-		return contacts.map((contact) => (
-			<div className="border-y flex p-4 cursor-pointer hover:bg-[#E7E9FE]">
-				<div>{contact.profile}</div>
+		return contacts.map((contact, idx) => (
+			<div
+				key={idx}
+				className="border-y flex p-4 cursor-pointer hover:bg-[#E7E9FE]"
+			>
+				<div className="mr-2">{contact.profile}</div>
 				<div className="flex-col">
 					<p className="text-xl font-semibold">{contact.username}</p>
 					<p className="text-gray-400 text-sm">{contact.lastMessage}</p>

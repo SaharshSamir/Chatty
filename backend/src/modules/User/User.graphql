@@ -1,4 +1,5 @@
 type Query {
+    test: String
     me: User
     login(email: String!, password: String!): String
 }
@@ -8,8 +9,9 @@ type Mutation {
 }
 
 type User {
+    userId: String!
     email: String!
     username: String!
     contacts: [User]
-    # conversations: [Conversations]
+    conversations: [Conversation]
 }
