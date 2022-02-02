@@ -25,15 +25,36 @@ export type Conversation = {
 
 export type Message = {
   __typename?: 'Message';
-  message_id: Scalars['String'];
-  sender_id?: Maybe<Scalars['String']>;
+  messageId: Scalars['String'];
+  senderId?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   timeStamp?: Maybe<Scalars['Date']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addParticipant?: Maybe<Conversation>;
+  newCon?: Maybe<Conversation>;
+  sendMessage: Message;
   signUp?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationAddParticipantArgs = {
+  conversation_id: Scalars['String'];
+  user_id: Scalars['String'];
+};
+
+
+export type MutationNewConArgs = {
+  is_groupChat: Scalars['Boolean'];
+};
+
+
+export type MutationSendMessageArgs = {
+  conversation_id: Scalars['String'];
+  senderId: Scalars['String'];
+  text: Scalars['String'];
 };
 
 
@@ -63,12 +84,23 @@ export type QueryLoginArgs = {
   password: Scalars['String'];
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  messageSent?: Maybe<Result>;
+};
+
 export type User = {
   __typename?: 'User';
   contacts?: Maybe<Array<Maybe<User>>>;
   conversations?: Maybe<Array<Maybe<Conversation>>>;
   email: Scalars['String'];
+  user_id: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type Result = {
+  __typename?: 'result';
+  messageId?: Maybe<Scalars['String']>;
 };
 
 
@@ -147,7 +179,9 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
+  result: ResolverTypeWrapper<Result>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -159,7 +193,9 @@ export type ResolversParentTypes = {
   Mutation: {};
   Query: {};
   String: Scalars['String'];
+  Subscription: {};
   User: User;
+  result: Result;
 };
 
 export type ConversationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Conversation'] = ResolversParentTypes['Conversation']> = {
@@ -175,14 +211,17 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
-  message_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  sender_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  messageId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  senderId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   timeStamp?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addParticipant?: Resolver<Maybe<ResolversTypes['Conversation']>, ParentType, ContextType, RequireFields<MutationAddParticipantArgs, 'conversation_id' | 'user_id'>>;
+  newCon?: Resolver<Maybe<ResolversTypes['Conversation']>, ParentType, ContextType, RequireFields<MutationNewConArgs, 'is_groupChat'>>;
+  sendMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationSendMessageArgs, 'conversation_id' | 'senderId' | 'text'>>;
   signUp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'email' | 'password' | 'username'>>;
 };
 
@@ -194,11 +233,21 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  messageSent?: SubscriptionResolver<Maybe<ResolversTypes['result']>, "messageSent", ParentType, ContextType>;
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   contacts?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Conversation']>>>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['result'] = ResolversParentTypes['result']> = {
+  messageId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -208,6 +257,8 @@ export type Resolvers<ContextType = any> = {
   Message?: MessageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  result?: ResultResolvers<ContextType>;
 };
 

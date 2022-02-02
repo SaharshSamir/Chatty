@@ -5,8 +5,20 @@ type Query {
 }
 
 type Message {
-    message_id: String!
+    messageId: String!
     text: String!
     timeStamp: Date
-    sender_id: String
+    senderId: String
+}
+
+type Mutation{
+    sendMessage(text:String!, senderId:String!, conversation_id:String!):Message!
+}
+
+type Subscription {
+    messageSent: result
+}
+
+type result{
+    messageId: String
 }

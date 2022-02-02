@@ -8,3 +8,8 @@ type Conversation {
     participants: User
     messages: [Message]
 }
+
+type Mutation {
+    newCon(is_groupChat:Boolean!):Conversation
+    addParticipant(conversation_id:String!, user_id:String!):Conversation
+}
