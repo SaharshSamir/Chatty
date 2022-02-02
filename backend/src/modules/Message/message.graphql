@@ -12,7 +12,7 @@ type Message {
 }
 
 type Mutation{
-    sendMessage(text:String!, senderId:String!, conversation_id:String!):Message!
+    sendMessage(text:String!,senderId:String!, conversation_id:String!):Message!
 }
 
 type Subscription {
